@@ -1,0 +1,101 @@
+﻿<Window x:Class="WpfApplication.ApplicationWindows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        WindowState="Maximized">
+    <Grid KeyUp="Grid_KeyEnter">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="310"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.75*"/>
+            <RowDefinition Height="0.11*"/>
+        </Grid.RowDefinitions > 
+
+        <Label Content="Для поиска нажмите Enter"
+           Grid.Row="0" 
+           Grid.Column="0"
+           VerticalContentAlignment="Bottom" 
+           HorizontalContentAlignment="Center"
+           FontSize="14"/>
+        <TextBox Name="search" 
+                 Grid.Row="1" 
+                 Grid.Column="0"
+                 AcceptsReturn="False" 
+                 TextAlignment="Center" 
+                 Height="20" 
+                 Margin="20 0 20 0"/>
+        <ListBox Name="console" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" />
+        <Button Content="Добавить данные" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Click="AddApplicationData_Click"/>
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Black"/>
+
+        <DataGrid Name="companies"
+              Grid.Row = "2"
+              Grid.Column="0"
+              RowHeight="20" 
+              RowBackground="#d3d3d3" 
+              AlternatingRowBackground="#ffffff"
+              SelectionMode="Single"
+              SelectionUnit="FullRow"
+              GridLinesVisibility="Vertical"
+              AutoGenerateColumns="False"
+              CanUserSortColumns="True"
+              GotFocus="Companies_GetEmloyees"
+              IsReadOnly="True">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название компании" 
+                                Width="300"
+                                Binding="{Binding Path=Name, 
+                                                  Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Name="employees"
+              Grid.Row = "2"
+              Grid.Column="1"
+              Grid.ColumnSpan="3" 
+              RowHeight="150" 
+              RowBackground="#d3d3d3" 
+              AlternatingRowBackground="#ffffff"
+              SelectionMode="Single"
+              SelectionUnit="FullRow"
+              GridLinesVisibility="Vertical"
+              AutoGenerateColumns="False"
+              CanUserSortColumns="True"
+              IsReadOnly="True">
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Фото">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="150" Source="{Binding Path=Photo}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Surname}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="4" Grid.Column="0">
+            <Button Content="Добавить компанию" Height="30" Click="AddCompany_Click"/>
+            <Button Content="Изменить компанию" Height="30" Click="EditCompany_Click"/>
+            <Button Content="Удалить компанию" Height="30" Click="DeleteCompany_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3">
+            <Button Content="Добавить сотрудника" Height="30" Click="AddEmployee_Click"/>
+            <Button Content="Изменить сотрудника" Height="30" Click="EditEmployee_Click"/>
+            <Button Content="Удалить сотрудника" Height="30" Click="DeleteEmployee_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
